@@ -6,7 +6,11 @@ import { useRef } from "react";
 
 export default function Testimonials() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+  const isInView = useInView(sectionRef, {
+    once: true,
+    amount: 0.1,
+    margin: "0px 0px -100px 0px",
+  });
 
   const testimonials = [
     {
@@ -81,20 +85,20 @@ export default function Testimonials() {
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
           initial={{ opacity: 0, y: -20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="inline-block mb-4">
-            <span className="bg-linear-to-r from-[#0A2463] to-[#06B6D4] text-white px-4 py-1 rounded-full text-sm font-semibold">
+          <div className="inline-block mb-3 md:mb-4">
+            <span className="bg-linear-to-r from-[#0A2463] to-[#06B6D4] text-white px-3 py-1 md:px-4 rounded-full text-xs md:text-sm font-semibold">
               Testimonials
             </span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0A2463] mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0A2463] mb-4">
             What Our Clients Say
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">
             Don&apos;t just take our word for it - hear from our satisfied
             clients who have experienced our exceptional service
           </p>
@@ -123,14 +127,14 @@ export default function Testimonials() {
             {duplicatedTestimonials.map((testimonial, index) => (
               <div
                 key={`${testimonial.id}-${index}`}
-                className="bg-white rounded-2xl p-8 border border-gray-100 shrink-0 w-[400px]  duration-300"
+                className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 border border-gray-100 shrink-0 w-[320px] md:w-[400px] duration-300"
               >
                 {/* Rating Stars */}
-                <div className="flex gap-1 mb-4">
+                <div className="flex gap-0.5 md:gap-1 mb-3 md:mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <svg
                       key={i}
-                      className="w-5 h-5 text-[#7EB23F]"
+                      className="w-4 h-4 md:w-5 md:h-5 text-[#7EB23F]"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -140,21 +144,23 @@ export default function Testimonials() {
                 </div>
 
                 {/* Testimonial Text */}
-                <p className="text-gray-600 mb-6 leading-relaxed">
+                <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
                   &quot;{testimonial.text}&quot;
                 </p>
 
                 {/* Author Info */}
-                <div className="flex items-center gap-4 border-t border-gray-100 pt-6">
-                  <div className="shrink-0 w-14 h-14 bg-linear-to-br from-[#0A2463] to-[#1E3A8A] rounded-full flex items-center justify-center text-white font-bold text-lg">
+                <div className="flex items-center gap-3 md:gap-4 border-t border-gray-100 pt-4 md:pt-6">
+                  <div className="shrink-0 w-12 h-12 md:w-14 md:h-14 bg-linear-to-br from-[#0A2463] to-[#1E3A8A] rounded-full flex items-center justify-center text-white font-bold text-base md:text-lg">
                     {testimonial.name.charAt(0)}
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#0A2463]">
+                    <h4 className="font-bold text-sm md:text-base text-[#0A2463]">
                       {testimonial.name}
                     </h4>
-                    <p className="text-sm text-gray-500">{testimonial.role}</p>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-xs md:text-sm text-gray-500">
+                      {testimonial.role}
+                    </p>
+                    <p className="text-xs md:text-sm text-gray-400">
                       {testimonial.company}
                     </p>
                   </div>
@@ -166,10 +172,10 @@ export default function Testimonials() {
 
         {/* Stats Section */}
         <motion.div
-          className="grid md:grid-cols-4 gap-8 max-w-5xl mx-auto mt-20"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-5xl mx-auto mt-12 md:mt-20"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
         >
           {[
             { number: "500+", label: "Happy Clients" },
@@ -178,10 +184,12 @@ export default function Testimonials() {
             { number: "4.9/5", label: "Client Rating" },
           ].map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-[#0A2463] mb-2">
+              <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0A2463] mb-2">
                 {stat.number}
               </div>
-              <div className="text-gray-600 font-medium">{stat.label}</div>
+              <div className="text-sm md:text-base text-gray-600 font-medium">
+                {stat.label}
+              </div>
             </div>
           ))}
         </motion.div>

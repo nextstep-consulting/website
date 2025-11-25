@@ -7,25 +7,31 @@ import Image from "next/image";
 
 export default function Services() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+  const isInView = useInView(sectionRef, {
+    once: true,
+    amount: 0.1,
+    margin: "0px 0px -100px 0px",
+  });
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
+        ease: "easeOut",
       },
     },
   };
@@ -157,7 +163,7 @@ export default function Services() {
 
         {/* Services List */}
         <motion.div
-          className="max-w-7xl mx-auto space-y-24"
+          className="max-w-7xl mx-auto space-y-16 md:space-y-24"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -165,7 +171,7 @@ export default function Services() {
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              className={`grid md:grid-cols-2 gap-12 items-center`}
+              className={`grid md:grid-cols-2 gap-8 md:gap-12 items-center`}
               variants={itemVariants}
             >
               {/* Image - Left for even, Right for odd */}
@@ -174,7 +180,7 @@ export default function Services() {
                   index % 2 === 0 ? "md:order-1" : "md:order-2"
                 }`}
               >
-                <div className="relative h-80 md:h-96 rounded-3xl overflow-hidden shadow-2xl group">
+                <div className="relative h-64 sm:h-80 md:h-96 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl group">
                   {/* Image */}
                   <Image
                     src={service.image}
@@ -188,10 +194,10 @@ export default function Services() {
 
                   {/* Icon Badge */}
                   <div
-                    className={`absolute top-6 left-6 w-16 h-16 bg-linear-to-br ${service.gradient} backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+                    className={`absolute top-4 left-4 md:top-6 md:left-6 w-12 h-12 md:w-16 md:h-16 bg-linear-to-br ${service.gradient} backdrop-blur-md rounded-xl md:rounded-2xl flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
                   >
                     <svg
-                      className="w-8 h-8 text-white"
+                      className="w-6 h-6 md:w-8 md:h-8 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -206,22 +212,22 @@ export default function Services() {
               <div
                 className={`${index % 2 === 0 ? "md:order-2" : "md:order-1"}`}
               >
-                <div className="mb-6">
+                <div className="mb-4 md:mb-6">
                   <span
-                    className={`inline-block px-4 py-1 rounded-full text-sm font-semibold bg-linear-to-r ${service.gradient} text-white mb-4`}
+                    className={`inline-block px-3 py-1 md:px-4 rounded-full text-xs md:text-sm font-semibold bg-linear-to-r ${service.gradient} text-white mb-3 md:mb-4`}
                   >
                     Service {String(index + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#0A2463] mb-4">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0A2463] mb-3 md:mb-4">
                     {service.title}
                   </h3>
-                  <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                  <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-4 md:mb-6">
                     {service.description}
                   </p>
                 </div>
 
                 {/* Features List */}
-                <div className="space-y-3 mb-8">
+                <div className="space-y-2 md:space-y-3 mb-6 md:mb-8">
                   {service.features.map((feature, idx) => (
                     <div key={idx} className="flex items-center gap-3">
                       <div
@@ -241,7 +247,7 @@ export default function Services() {
                           />
                         </svg>
                       </div>
-                      <span className="text-gray-700 font-medium">
+                      <span className="text-sm md:text-base text-gray-700 font-medium">
                         {feature}
                       </span>
                     </div>

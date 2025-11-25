@@ -6,25 +6,31 @@ import { useRef } from "react";
 
 export default function Features() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useInView(ref, {
+    once: true,
+    amount: 0.1,
+    margin: "0px 0px -100px 0px",
+  });
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.1,
+        delayChildren: 0.05,
       },
     },
   };
 
   const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.4,
+        ease: "easeOut",
       },
     },
   };
@@ -137,20 +143,20 @@ export default function Features() {
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
           initial={{ opacity: 0, y: -20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="inline-block mb-4">
-            <span className="bg-linear-to-r from-[#0A2463] to-[#06B6D4] text-white px-4 py-1 rounded-full text-sm font-semibold">
+          <div className="inline-block mb-3 md:mb-4">
+            <span className="bg-linear-to-r from-[#0A2463] to-[#06B6D4] text-white px-3 py-1 md:px-4 rounded-full text-xs md:text-sm font-semibold">
               Our Features
             </span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0A2463] mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0A2463] mb-4">
             Why Professionals Choose Us
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto">
             Discover the features that set us apart and make your experience
             seamless and successful
           </p>
@@ -158,7 +164,7 @@ export default function Features() {
 
         {/* Features Grid */}
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -166,15 +172,15 @@ export default function Features() {
           {features.map((feature) => (
             <motion.div
               key={feature.id}
-              className="group premium-card bg-white rounded-2xl shadow-lg border border-gray-100 hover:border-[#7EB23F] overflow-hidden"
+              className="group premium-card bg-white rounded-xl md:rounded-2xl shadow-lg border border-gray-100 hover:border-[#7EB23F] overflow-hidden"
               variants={cardVariants}
               whileHover={{ y: -5 }}
             >
               {/* Image Placeholder */}
-              <div className="relative h-48 bg-linear-to-br from-[#0A2463] to-[#1E3A8A] overflow-hidden">
+              <div className="relative h-40 md:h-48 bg-linear-to-br from-[#0A2463] to-[#1E3A8A] overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <svg
-                    className="w-16 h-16 text-white/30"
+                    className="w-12 h-12 md:w-16 md:h-16 text-white/30"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -183,9 +189,9 @@ export default function Features() {
                   </svg>
                 </div>
                 {/* Overlay Icon */}
-                <div className="absolute top-4 right-4 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                <div className="absolute top-3 right-3 md:top-4 md:right-4 w-10 h-10 md:w-12 md:h-12 bg-white/10 backdrop-blur-sm rounded-lg md:rounded-xl flex items-center justify-center">
                   <svg
-                    className="w-6 h-6 text-white"
+                    className="w-5 h-5 md:w-6 md:h-6 text-white"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -196,11 +202,11 @@ export default function Features() {
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-[#0A2463] mb-3 group-hover:text-[#7EB23F] transition-colors">
+              <div className="p-4 md:p-6">
+                <h3 className="text-lg md:text-xl font-bold text-[#0A2463] mb-2 md:mb-3 group-hover:text-[#7EB23F] transition-colors">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                   {feature.description}
                 </p>
               </div>

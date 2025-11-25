@@ -6,15 +6,20 @@ import { useRef } from "react";
 
 export default function Pricing() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useInView(ref, {
+    once: true,
+    amount: 0.1,
+    margin: "0px 0px -100px 0px",
+  });
 
   const cardVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, scale: 0.95 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.4,
+        ease: "easeOut",
       },
     },
   };
@@ -41,42 +46,42 @@ export default function Pricing() {
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
           initial={{ opacity: 0, y: -20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="inline-block mb-4">
-            <span className="bg-linear-to-r from-[#0A2463] to-[#06B6D4] text-white px-4 py-1 rounded-full text-sm font-semibold">
+          <div className="inline-block mb-3 md:mb-4">
+            <span className="bg-linear-to-r from-[#0A2463] to-[#06B6D4] text-white px-3 py-1 md:px-4 rounded-full text-xs md:text-sm font-semibold">
               Pricing Plans
             </span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0A2463] mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0A2463] mb-4">
             2 Years Working Permit Packages
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
             Comprehensive visa solutions with all essential services included
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
           {/* Men's Package */}
           <motion.div
-            className="group premium-card bg-white rounded-3xl shadow-2xl p-10 border-2 border-gray-100 hover:border-[#7EB23F] relative overflow-hidden"
+            className="group premium-card bg-white rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-10 border-2 border-gray-100 hover:border-[#7EB23F] relative overflow-hidden"
             variants={cardVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1 }}
             whileHover={{ y: -10 }}
           >
             {/* Card Glow Effect */}
             <div className="absolute inset-0 bg-linear-to-br from-[#0A2463]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
             <div className="relative z-10">
-              <div className="text-center mb-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-br from-[#0A2463] to-[#1E3A8A] rounded-2xl mb-4 shadow-lg">
+              <div className="text-center mb-6 md:mb-10">
+                <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-linear-to-br from-[#0A2463] to-[#1E3A8A] rounded-xl md:rounded-2xl mb-3 md:mb-4 shadow-lg">
                   <svg
-                    className="w-8 h-8 text-white"
+                    className="w-6 h-6 md:w-8 md:h-8 text-white"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -89,17 +94,17 @@ export default function Pricing() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
                   For Men
                 </h3>
               </div>
 
-              <div className="space-y-4 mb-10">
+              <div className="space-y-3 md:space-y-4 mb-6 md:mb-10">
                 {features.map((feature, index) => (
                   <div key={index} className="flex items-start group/item">
-                    <div className="shrink-0 w-6 h-6 bg-linear-to-br from-[#7EB23F] to-[#A8D47E] rounded-full flex items-center justify-center mr-3 mt-0.5">
+                    <div className="shrink-0 w-5 h-5 md:w-6 md:h-6 bg-linear-to-br from-[#7EB23F] to-[#A8D47E] rounded-full flex items-center justify-center mr-2 md:mr-3 mt-0.5">
                       <svg
-                        className="w-4 h-4 text-white"
+                        className="w-3 h-3 md:w-4 md:h-4 text-white"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -112,7 +117,9 @@ export default function Pricing() {
                         />
                       </svg>
                     </div>
-                    <span className="text-gray-700 font-medium">{feature}</span>
+                    <span className="text-sm md:text-base text-gray-700 font-medium">
+                      {feature}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -125,18 +132,18 @@ export default function Pricing() {
 
           {/* Women's Package - Featured */}
           <motion.div
-            className="group premium-card bg-linear-to-br from-[#0A2463] via-[#1E3A8A] to-[#0A2463] rounded-3xl shadow-2xl p-10 relative overflow-hidden"
+            className="group premium-card bg-linear-to-br from-[#0A2463] via-[#1E3A8A] to-[#0A2463] rounded-2xl md:rounded-3xl shadow-2xl p-6 md:p-10 relative overflow-hidden"
             variants={cardVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.2 }}
             whileHover={{ y: -10 }}
           >
             {/* Popular Badge */}
-            <div className="absolute top-6 right-6 z-20">
-              <div className="bg-linear-to-r from-[#7EB23F] to-[#A8D47E] text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg flex items-center gap-2">
+            <div className="absolute top-4 right-4 md:top-6 md:right-6 z-20">
+              <div className="bg-linear-to-r from-[#7EB23F] to-[#A8D47E] text-white px-3 py-1 md:px-4 md:py-1.5 rounded-full text-xs md:text-sm font-bold shadow-lg flex items-center gap-1 md:gap-2">
                 <svg
-                  className="w-4 h-4"
+                  className="w-3 h-3 md:w-4 md:h-4"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -147,10 +154,10 @@ export default function Pricing() {
             </div>
 
             <div className="relative z-10">
-              <div className="text-center mb-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-br from-[#7EB23F] to-[#A8D47E] rounded-2xl mb-4 shadow-xl">
+              <div className="text-center mb-6 md:mb-10">
+                <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-linear-to-br from-[#7EB23F] to-[#A8D47E] rounded-xl md:rounded-2xl mb-3 md:mb-4 shadow-xl">
                   <svg
-                    className="w-8 h-8 text-white"
+                    className="w-6 h-6 md:w-8 md:h-8 text-white"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -163,17 +170,17 @@ export default function Pricing() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
                   For Women
                 </h3>
               </div>
 
-              <div className="space-y-4 mb-10">
+              <div className="space-y-3 md:space-y-4 mb-6 md:mb-10">
                 {features.map((feature, index) => (
-                  <div key={index} className="flex items-start">
-                    <div className="shrink-0 w-6 h-6 bg-linear-to-br from-[#7EB23F] to-[#A8D47E] rounded-full flex items-center justify-center mr-3 mt-0.5">
+                  <div key={index} className="flex items-start group/item">
+                    <div className="shrink-0 w-5 h-5 md:w-6 md:h-6 bg-linear-to-br from-[#7EB23F] to-[#A8D47E] rounded-full flex items-center justify-center mr-2 md:mr-3 mt-0.5">
                       <svg
-                        className="w-4 h-4 text-white"
+                        className="w-3 h-3 md:w-4 md:h-4 text-white"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -186,7 +193,9 @@ export default function Pricing() {
                         />
                       </svg>
                     </div>
-                    <span className="text-white font-medium">{feature}</span>
+                    <span className="text-sm md:text-base text-white font-medium">
+                      {feature}
+                    </span>
                   </div>
                 ))}
               </div>

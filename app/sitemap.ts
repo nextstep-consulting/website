@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = "https://nextstepgroup.com";
+  const baseUrl = "https://nextstepconsultings.com";
 
   return [
     {
