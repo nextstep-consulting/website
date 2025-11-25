@@ -1,4 +1,24 @@
+"use client";
+
+import { motion, type Variants } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+
 export default function Pricing() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   const features = [
     "2 years working permit",
     "2 years working visa",
@@ -12,6 +32,7 @@ export default function Pricing() {
     <section
       id="pricing"
       className="py-24 bg-linear-to-b from-white via-gray-50 to-white relative overflow-hidden"
+      ref={ref}
     >
       {/* Background Decoration */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#7EB23F]/5 rounded-full blur-3xl"></div>
@@ -19,7 +40,12 @@ export default function Pricing() {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fadeInUp">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="inline-block mb-4">
             <span className="bg-linear-to-r from-[#0A2463] to-[#06B6D4] text-white px-4 py-1 rounded-full text-sm font-semibold">
               Pricing Plans
@@ -31,11 +57,18 @@ export default function Pricing() {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Comprehensive visa solutions with all essential services included
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Men's Package */}
-          <div className="group premium-card bg-white rounded-3xl shadow-2xl p-10 border-2 border-gray-100 hover:border-[#7EB23F] relative overflow-hidden animate-fadeInUp animate-delay-100">
+          <motion.div
+            className="group premium-card bg-white rounded-3xl shadow-2xl p-10 border-2 border-gray-100 hover:border-[#7EB23F] relative overflow-hidden"
+            variants={cardVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            transition={{ delay: 0.2 }}
+            whileHover={{ y: -10 }}
+          >
             {/* Card Glow Effect */}
             <div className="absolute inset-0 bg-linear-to-br from-[#0A2463]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
@@ -88,10 +121,17 @@ export default function Pricing() {
                 Get Started
               </button> */}
             </div>
-          </div>
+          </motion.div>
 
           {/* Women's Package - Featured */}
-          <div className="group premium-card bg-linear-to-br from-[#0A2463] via-[#1E3A8A] to-[#0A2463] rounded-3xl shadow-2xl p-10 relative overflow-hidden animate-fadeInUp animate-delay-200">
+          <motion.div
+            className="group premium-card bg-linear-to-br from-[#0A2463] via-[#1E3A8A] to-[#0A2463] rounded-3xl shadow-2xl p-10 relative overflow-hidden"
+            variants={cardVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            transition={{ delay: 0.4 }}
+            whileHover={{ y: -10 }}
+          >
             {/* Popular Badge */}
             <div className="absolute top-6 right-6 z-20">
               <div className="bg-linear-to-r from-[#7EB23F] to-[#A8D47E] text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg flex items-center gap-2">
@@ -155,11 +195,16 @@ export default function Pricing() {
                 Get Started
               </button> */}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Trust Indicators */}
-        <div className="mt-16 text-center animate-fadeInUp animate-delay-300">
+        <motion.div
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
           <p className="text-gray-600 mb-6 font-medium">
             Trusted by professionals worldwide
           </p>
@@ -207,7 +252,7 @@ export default function Pricing() {
               <span className="text-gray-700 font-semibold">100% Success</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

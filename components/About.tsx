@@ -1,6 +1,28 @@
+"use client";
+
+import { motion, type Variants } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+
 export default function About() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+
+  const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  };
+
   return (
-    <section id="about" className="py-24 bg-white relative overflow-hidden">
+    <section
+      id="about"
+      className="py-24 bg-white relative overflow-hidden"
+      ref={ref}
+    >
       {/* Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full opacity-5">
         <div className="absolute top-20 right-20 w-64 h-64 bg-[#0A2463] rounded-full blur-3xl"></div>
@@ -9,7 +31,12 @@ export default function About() {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-20 animate-fadeInUp">
+        <motion.div
+          className="text-center mb-20"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={fadeInUp}
+        >
           <div className="inline-block mb-4">
             <span className="bg-linear-to-r from-[#0A2463] to-[#06B6D4] text-white px-4 py-1 rounded-full text-sm font-semibold">
               About Us
@@ -19,11 +46,17 @@ export default function About() {
             Your Trusted Partner in Global Opportunities
           </h2>
           <div className="w-24 h-1 bg-linear-to-r from-[#7EB23F] to-[#06B6D4] mx-auto rounded-full"></div>
-        </div>
+        </motion.div>
 
         <div className="max-w-6xl mx-auto space-y-16">
           {/* Intro */}
-          <div className="text-center max-w-4xl mx-auto animate-fadeInUp animate-delay-100">
+          <motion.div
+            className="text-center max-w-4xl mx-auto"
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            variants={fadeInUp}
+            transition={{ delay: 0.2 }}
+          >
             <p className="text-xl text-gray-700 leading-relaxed">
               At Next Step Consulting Group, we specialize in providing seamless
               freelance visa solutions for professionals looking to broaden
@@ -32,10 +65,16 @@ export default function About() {
               freelancers to pursue their passions and enhance their careers in
               dynamic markets around the world.
             </p>
-          </div>
+          </motion.div>
 
           {/* Who We Are */}
-          <div className="grid md:grid-cols-2 gap-12 items-center animate-fadeInUp animate-delay-200">
+          <motion.div
+            className="grid md:grid-cols-2 gap-12 items-center"
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            variants={fadeInUp}
+            transition={{ delay: 0.4 }}
+          >
             <div className="order-2 md:order-1">
               <div className="bg-linear-to-br from-[#0A2463]/5 via-[#06B6D4]/5 to-transparent p-10 rounded-3xl border border-[#0A2463]/10">
                 <div className="w-16 h-16 bg-linear-to-br from-[#7EB23F] to-[#A8D47E] rounded-2xl flex items-center justify-center mb-6">
@@ -88,10 +127,15 @@ export default function About() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* What We Offer */}
-          <div className="animate-fadeInUp animate-delay-300">
+          <motion.div
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            variants={fadeInUp}
+            transition={{ delay: 0.6 }}
+          >
             <h3 className="text-3xl font-bold text-[#0A2463] mb-10 text-center">
               What We Offer
             </h3>
@@ -179,10 +223,16 @@ export default function About() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Global Talent Partnership */}
-          <div className="bg-linear-to-br from-[#0A2463] via-[#1E3A8A] to-[#0A2463] p-12 rounded-3xl text-white relative overflow-hidden animate-fadeInUp animate-delay-400">
+          <motion.div
+            className="bg-linear-to-br from-[#0A2463] via-[#1E3A8A] to-[#0A2463] p-12 rounded-3xl text-white relative overflow-hidden"
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            variants={fadeInUp}
+            transition={{ delay: 0.8 }}
+          >
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#7EB23F]/10 rounded-full blur-3xl"></div>
             <div className="relative z-10">
               <h3 className="text-3xl font-bold mb-6">
@@ -206,7 +256,7 @@ export default function About() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

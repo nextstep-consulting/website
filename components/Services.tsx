@@ -1,4 +1,34 @@
+"use client";
+
+import { motion, type Variants } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+
 export default function Services() {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  };
+
   const services = [
     {
       id: 1,
@@ -87,7 +117,11 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="py-24 bg-white relative overflow-hidden">
+    <section
+      id="services"
+      className="py-24 bg-white relative overflow-hidden"
+      ref={sectionRef}
+    >
       {/* Background Decoration */}
       <div className="absolute top-0 left-0 w-full h-full opacity-5">
         <div className="absolute top-20 right-20 w-96 h-96 bg-[#7EB23F] rounded-full blur-3xl"></div>
@@ -96,7 +130,12 @@ export default function Services() {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-20 animate-fadeInUp">
+        <motion.div
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: -20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="inline-block mb-4">
             <span className="bg-linear-to-r from-[#0A2463] to-[#06B6D4] text-white px-4 py-1 rounded-full text-sm font-semibold">
               Our Services
@@ -109,16 +148,20 @@ export default function Services() {
             From visa processing to business setup, we provide end-to-end
             services to help you thrive in the UAE
           </p>
-        </div>
+        </motion.div>
 
         {/* Services List */}
-        <div className="max-w-7xl mx-auto space-y-24">
+        <motion.div
+          className="max-w-7xl mx-auto space-y-24"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={service.id}
-              className={`grid md:grid-cols-2 gap-12 items-center animate-fadeInUp animate-delay-${
-                (index + 1) * 100
-              }`}
+              className={`grid md:grid-cols-2 gap-12 items-center`}
+              variants={itemVariants}
             >
               {/* Image - Left for even, Right for odd */}
               <div
@@ -229,9 +272,9 @@ export default function Services() {
                   </svg>
                 </a>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Call to Action */}
         <div className="text-center mt-24 animate-fadeInUp animate-delay-500">

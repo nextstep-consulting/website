@@ -1,4 +1,34 @@
+"use client";
+
+import { motion, type Variants } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+
 export default function Features() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   const features = [
     {
       id: 1,
@@ -93,7 +123,11 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" className="py-24 bg-white relative overflow-hidden">
+    <section
+      id="features"
+      className="py-24 bg-white relative overflow-hidden"
+      ref={ref}
+    >
       {/* Background Elements */}
       <div className="absolute top-0 right-0 w-full h-full opacity-5">
         <div className="absolute top-20 right-20 w-64 h-64 bg-[#0A2463] rounded-full blur-3xl"></div>
@@ -102,7 +136,12 @@ export default function Features() {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fadeInUp">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="inline-block mb-4">
             <span className="bg-linear-to-r from-[#0A2463] to-[#06B6D4] text-white px-4 py-1 rounded-full text-sm font-semibold">
               Our Features
@@ -115,16 +154,21 @@ export default function Features() {
             Discover the features that set us apart and make your experience
             seamless and successful
           </p>
-        </div>
+        </motion.div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {features.map((feature, index) => (
-            <div
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          {features.map((feature) => (
+            <motion.div
               key={feature.id}
-              className={`group premium-card bg-white rounded-2xl shadow-lg border border-gray-100 hover:border-[#7EB23F] overflow-hidden animate-fadeInUp animate-delay-${
-                (index + 1) * 100
-              }`}
+              className="group premium-card bg-white rounded-2xl shadow-lg border border-gray-100 hover:border-[#7EB23F] overflow-hidden"
+              variants={cardVariants}
+              whileHover={{ y: -5 }}
             >
               {/* Image Placeholder */}
               <div className="relative h-48 bg-linear-to-br from-[#0A2463] to-[#1E3A8A] overflow-hidden">
@@ -160,9 +204,9 @@ export default function Features() {
                   {feature.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
