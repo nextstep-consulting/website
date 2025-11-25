@@ -5,6 +5,7 @@ import Pricing from "../components/Pricing";
 import About from "../components/About";
 import Features from "../components/Features";
 import WhyChooseUs from "../components/WhyChooseUs";
+import Testimonials from "../components/Testimonials";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 
@@ -19,6 +20,7 @@ export default function Home() {
         <About />
         <Features />
         <WhyChooseUs />
+        <Testimonials />
         <Contact />
       </main>
       <Footer />

@@ -3,6 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 
 export default function Services() {
   const sectionRef = useRef(null);
@@ -43,6 +44,7 @@ export default function Services() {
           d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
         />
       ),
+      image: "/visit-visa.png",
       gradient: "from-[#0A2463] to-[#1E3A8A]",
       features: [
         "Tourist & Family Visit Visas",
@@ -64,6 +66,7 @@ export default function Services() {
           d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
         />
       ),
+      image: "/business-setup.png",
       gradient: "from-[#7EB23F] to-[#A8D47E]",
       features: [
         "Mainland Company Formation",
@@ -85,6 +88,7 @@ export default function Services() {
           d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
         />
       ),
+      image: "/real-estate.png",
       gradient: "from-[#06B6D4] to-[#0EA5E9]",
       features: [
         "Residential Properties",
@@ -106,6 +110,7 @@ export default function Services() {
           d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
         />
       ),
+      image: "/human-resource.png",
       gradient: "from-[#1E3A8A] to-[#0A2463]",
       features: [
         "Talent Recruitment",
@@ -170,27 +175,21 @@ export default function Services() {
                 }`}
               >
                 <div className="relative h-80 md:h-96 rounded-3xl overflow-hidden shadow-2xl group">
-                  {/* Gradient Background with Icon */}
-                  <div
-                    className={`absolute inset-0 bg-linear-to-br ${service.gradient}`}
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <svg
-                        className="w-32 h-32 text-white/20"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        {service.icon}
-                      </svg>
-                    </div>
-                  </div>
+                  {/* Image */}
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
 
-                  {/* Decorative Pattern Overlay */}
-                  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
+                  {/* Dark Overlay */}
+                  <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/5 to-transparent"></div>
 
                   {/* Icon Badge */}
-                  <div className="absolute top-6 left-6 w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform duration-300">
+                  <div
+                    className={`absolute top-6 left-6 w-16 h-16 bg-linear-to-br ${service.gradient} backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+                  >
                     <svg
                       className="w-8 h-8 text-white"
                       fill="none"

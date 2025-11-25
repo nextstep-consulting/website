@@ -98,6 +98,16 @@ export default function Header() {
               Features
             </a>
             <a
+              href="#testimonials"
+              className={`font-medium transition-colors ${
+                isScrolled
+                  ? "text-gray-700 hover:text-[#0A2463]"
+                  : "text-white hover:text-[#7EB23F]"
+              }`}
+            >
+              Testimonials
+            </a>
+            <a
               href="#contact"
               className="bg-linear-to-r from-[#7EB23F] to-[#A8D47E] text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105"
             >
@@ -184,6 +194,17 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Features
+              </a>
+              <a
+                href="#testimonials"
+                className={`font-medium transition-colors ${
+                  isScrolled
+                    ? "text-gray-700 hover:text-[#0A2463]"
+                    : "text-white hover:text-[#7EB23F]"
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Testimonials
               </a>
               <a
                 href="#why-choose-us"

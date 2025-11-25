@@ -1,19 +1,60 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
+    service: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+
+    const loadingToast = toast.loading("Sending your message...");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(
+          "Thank you for contacting us! We'll get back to you shortly.",
+          { id: loadingToast }
+        );
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          message: "",
+        });
+      } else {
+        toast.error(data.error || "Something went wrong. Please try again.", {
+          id: loadingToast,
+        });
+      }
+    } catch {
+      toast.error("Failed to send message. Please try again later.", {
+        id: loadingToast,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -65,7 +106,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Email</h4>
-                      <p className="text-blue-200">info@nextstepgroup.com</p>
+                      <p className="text-blue-200">nextstep247123@gmail.com</p>
                     </div>
                   </div>
 
@@ -87,7 +128,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Phone</h4>
-                      <p className="text-blue-200">+977 XXX XXXX XXX</p>
+                      <p className="text-blue-200">+971 507375742</p>
                     </div>
                   </div>
 
@@ -115,13 +156,13 @@ export default function Contact() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Location</h4>
-                      <p className="text-blue-200">Kathmandu, Nepal</p>
+                      <p className="text-blue-200">Al muteena, Deira, Dubai</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Social Links */}
-                <div>
+                {/* <div>
                   <h4 className="font-semibold mb-4">Follow Us</h4>
                   <div className="flex gap-3">
                     {["facebook", "linkedin", "twitter", "instagram"].map(
@@ -143,7 +184,7 @@ export default function Contact() {
                       )
                     )}
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -164,7 +205,7 @@ export default function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
-                    className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7EB23F] focus:border-transparent transition-all outline-none"
+                    className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7EB23F] focus:border-transparent transition-all outline-none text-[#0A2463]"
                     placeholder="John Doe"
                     required
                   />
@@ -184,7 +225,7 @@ export default function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
-                    className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7EB23F] focus:border-transparent transition-all outline-none"
+                    className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7EB23F] focus:border-transparent transition-all outline-none text-[#0A2463]"
                     placeholder="john@example.com"
                     required
                   />
@@ -204,9 +245,35 @@ export default function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, phone: e.target.value })
                     }
-                    className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7EB23F] focus:border-transparent transition-all outline-none"
+                    className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7EB23F] focus:border-transparent transition-all outline-none text-[#0A2463]"
                     placeholder="+977 XXX XXXX XXX"
                   />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="service"
+                    className="block text-gray-700 font-semibold mb-2"
+                  >
+                    Service Interested In
+                  </label>
+                  <select
+                    id="service"
+                    value={formData.service}
+                    onChange={(e) =>
+                      setFormData({ ...formData, service: e.target.value })
+                    }
+                    className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7EB23F] focus:border-transparent transition-all outline-none bg-white text-[#0A2463]"
+                  >
+                    <option value="">Select a service</option>
+                    <option value="Visit Visa">Visit Visa</option>
+                    <option value="Business Setup in UAE">
+                      Business Setup in UAE
+                    </option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Human Resource">Human Resource</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
 
                 <div>
@@ -223,7 +290,7 @@ export default function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7EB23F] focus:border-transparent transition-all outline-none resize-none"
+                    className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7EB23F] focus:border-transparent transition-all outline-none resize-none text-[#0A2463]"
                     placeholder="Tell us about your visa needs..."
                     required
                   ></textarea>
@@ -231,22 +298,46 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full bg-linear-to-r from-[#0A2463] to-[#1E3A8A] text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 group"
+                  disabled={isSubmitting}
+                  className="w-full bg-linear-to-r from-[#0A2463] to-[#1E3A8A] text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
-                  <span>Send Message</span>
-                  <svg
-                    className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    />
-                  </svg>
+                  <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
+                  {!isSubmitting && (
+                    <svg
+                      className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
+                    </svg>
+                  )}
+                  {isSubmitting && (
+                    <svg
+                      className="animate-spin w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                  )}
                 </button>
               </form>
             </div>
