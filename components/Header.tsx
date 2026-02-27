@@ -21,14 +21,18 @@ export default function Header() {
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-lg"
           : isMobileMenuOpen
-          ? "bg-[#0A2463]/95 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
+            ? "bg-[#0A2463]/95 backdrop-blur-md shadow-lg"
+            : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center space-x-3 group" aria-label="Next Step Consulting Group - Go to homepage">
+          <a
+            href="#"
+            className="flex items-center space-x-3 group"
+            aria-label="Next Step Consulting Group - Go to homepage"
+          >
             <div className="w-16 h-16 relative bg-white rounded-lg p-2">
               <Image
                 src="/just-logo.png"
@@ -125,7 +129,11 @@ export default function Header() {
               isScrolled ? "text-gray-700" : "text-white"
             }`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              isMobileMenuOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
+            }
             aria-expanded={isMobileMenuOpen}
           >
             <svg

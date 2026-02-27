@@ -73,7 +73,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Next Step Consulting Group | UAE Business & Visa Solutions in Dubai",
+    title:
+      "Next Step Consulting Group | UAE Business & Visa Solutions in Dubai",
     description:
       "Expert UAE Visit Visa, Business Setup, Real Estate & HR services in Dubai. Your success is our priority. Call +971 507375742.",
     images: ["/logo.png"],
@@ -89,7 +90,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-
 };
 
 export default function RootLayout({
