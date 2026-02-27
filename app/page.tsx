@@ -3,6 +3,7 @@ import Hero from "../components/Hero";
 import Services from "../components/Services";
 import Pricing from "../components/Pricing";
 import About from "../components/About";
+import Chairman from "../components/Chairman";
 import Features from "../components/Features";
 import WhyChooseUs from "../components/WhyChooseUs";
 import Testimonials from "../components/Testimonials";
@@ -18,6 +19,7 @@ export default function Home() {
         <Services />
         <Pricing />
         <About />
+        <Chairman />
         <Features />
         <WhyChooseUs />
         <Testimonials />

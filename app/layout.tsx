@@ -9,9 +9,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Next Step Consulting Group - UAE Visa, Business Setup & HR Solutions",
+  title: {
+    default:
+      "Next Step Consulting Group | UAE Visa, Business Setup & HR Solutions in Dubai",
+    template: "%s | Next Step Consulting Group",
+  },
   description:
-    "Expert consulting services in UAE: Visit Visa processing, Business Setup (Mainland, Freezone, Offshore), Real Estate consultancy, and comprehensive HR solutions. Fast, reliable, and professional services in Dubai and across UAE.",
+    "Next Step Consulting Group offers expert UAE consulting services: Visit Visa processing, Business Setup (Mainland, Freezone, Offshore), Real Estate consultancy, and comprehensive HR solutions. Fast, reliable, and professional services in Dubai and across UAE. Call +971 507375742.",
   keywords: [
     "UAE visit visa",
     "Dubai visit visa",
@@ -33,25 +37,31 @@ export const metadata: Metadata = {
     "immigration services Dubai",
     "business consultancy UAE",
     "Next Step Consulting Group",
+    "Next Step Consultings",
     "freelance visa UAE",
     "work permit Dubai",
+    "consulting group Dubai",
+    "nextstepconsultings",
+    "business consulting Dubai",
+    "visa services Dubai",
+    "2 year working permit UAE",
   ],
   authors: [{ name: "Next Step Consulting Group" }],
   creator: "Next Step Consulting Group",
   publisher: "Next Step Consulting Group",
-  metadataBase: new URL("https://nextstepgroup.com"),
+  metadataBase: new URL("https://nextstepconsultings.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://nextstepgroup.com",
+    url: "https://nextstepconsultings.com",
     siteName: "Next Step Consulting Group",
     title:
-      "Next Step Consulting Group - UAE Visa, Business Setup & HR Solutions",
+      "Next Step Consulting Group | UAE Visa, Business Setup & HR Solutions in Dubai",
     description:
-      "Your trusted partner for UAE Visit Visa, Business Setup, Real Estate, and HR services. Fast processing, expert guidance, and comprehensive support across Dubai and UAE.",
+      "Your trusted partner for UAE Visit Visa, Business Setup, Real Estate, and HR services in Dubai. Fast processing, expert guidance. Call +971 507375742.",
     images: [
       {
         url: "/logo.png",
@@ -63,9 +73,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Next Step Consulting Group - UAE Business & Visa Solutions",
+    title: "Next Step Consulting Group | UAE Business & Visa Solutions in Dubai",
     description:
-      "Expert UAE Visit Visa, Business Setup, Real Estate & HR services. Your success is our priority.",
+      "Expert UAE Visit Visa, Business Setup, Real Estate & HR services in Dubai. Your success is our priority. Call +971 507375742.",
     images: ["/logo.png"],
   },
   robots: {
@@ -79,9 +89,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
+
 };
 
 export default function RootLayout({
@@ -95,9 +103,38 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#0A2463" />
+        <meta name="geo.region" content="AE-DU" />
+        <meta name="geo.placename" content="Dubai" />
+        <meta name="geo.position" content="25.2048;55.2708" />
+        <meta name="ICBM" content="25.2048, 55.2708" />
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/logo.png" />
-        <link rel="canonical" href="https://nextstepgroup.com" />
+        <link rel="canonical" href="https://nextstepconsultings.com" />
+
+        {/* WebSite Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Next Step Consulting Group",
+              url: "https://nextstepconsultings.com",
+              description:
+                "Expert consulting services in UAE: Visit Visa processing, Business Setup, Real Estate consultancy, and HR solutions.",
+              publisher: {
+                "@type": "Organization",
+                name: "Next Step Consulting Group",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://nextstepconsultings.com/logo.png",
+                },
+              },
+            }),
+          }}
+        />
+
+        {/* ProfessionalService Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -107,11 +144,11 @@ export default function RootLayout({
               name: "Next Step Consulting Group",
               description:
                 "Expert UAE consulting services: Visit Visa, Business Setup, Real Estate, and HR solutions",
-              url: "https://nextstepgroup.com",
-              logo: "https://nextstepgroup.com/logo.png",
-              image: "https://nextstepgroup.com/logo.png",
-              telephone: "+971-XX-XXX-XXXX",
-              email: "info@nextstepgroup.com",
+              url: "https://nextstepconsultings.com",
+              logo: "https://nextstepconsultings.com/logo.png",
+              image: "https://nextstepconsultings.com/logo.png",
+              telephone: "+971 507375742",
+              email: "nextstep247123@gmail.com",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Dubai",
@@ -138,9 +175,8 @@ export default function RootLayout({
                 },
               ],
               sameAs: [
-                "https://facebook.com/nextstepgroup",
-                "https://linkedin.com/company/nextstepgroup",
-                "https://instagram.com/nextstepgroup",
+                "https://www.facebook.com/nextstepconsultinggroup",
+                "https://www.instagram.com/next_step247",
               ],
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
@@ -188,6 +224,26 @@ export default function RootLayout({
                 "@type": "AggregateRating",
                 ratingValue: "4.9",
                 reviewCount: "150",
+              },
+              priceRange: "$$",
+              openingHoursSpecification: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                  "Sunday",
+                ],
+                opens: "09:00",
+                closes: "18:00",
+              },
+              founder: {
+                "@type": "Person",
+                name: "Ronish Shrestha",
+                jobTitle: "Chairman & Founder",
               },
             }),
           }}

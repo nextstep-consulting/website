@@ -28,7 +28,7 @@ export default function Header() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center space-x-3 group">
+          <a href="#" className="flex items-center space-x-3 group" aria-label="Next Step Consulting Group - Go to homepage">
             <div className="w-16 h-16 relative bg-white rounded-lg p-2">
               <Image
                 src="/just-logo.png"
@@ -40,15 +40,15 @@ export default function Header() {
               />
             </div>
             <div>
-              <h1
-                className={`text-xl font-bold transition-colors ${
+              <span
+                className={`text-xl font-bold transition-colors block ${
                   isScrolled
                     ? "text-[#0A2463] group-hover:text-[#7EB23F]"
                     : "text-white group-hover:text-[#7EB23F]"
                 }`}
               >
                 Next Step
-              </h1>
+              </span>
               <p
                 className={`text-xs transition-colors ${
                   isScrolled ? "text-gray-600" : "text-blue-200"
@@ -125,6 +125,8 @@ export default function Header() {
               isScrolled ? "text-gray-700" : "text-white"
             }`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isMobileMenuOpen}
           >
             <svg
               className="w-6 h-6"

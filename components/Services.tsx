@@ -258,6 +258,7 @@ export default function Services() {
                 <a
                   href="#contact"
                   className="group inline-flex items-center gap-2 text-[#0A2463] font-semibold hover:gap-3 transition-all duration-300"
+                  aria-label={`Learn more about ${service.title} services`}
                 >
                   <span className="border-b-2 border-[#0A2463]">
                     Learn More

@@ -1,6 +1,8 @@
 {
-  "name": "Next Step Consultings",
-  "short_name": "NextStep",
+  "name": "Next Step Consulting Group - UAE Visa, Business Setup & HR Solutions",
+  "short_name": "Next Step",
+  "description": "Expert UAE consulting services: Visit Visa, Business Setup, Real Estate, and HR solutions in Dubai.",
+  "start_url": "/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -15,7 +17,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
+  "theme_color": "#0A2463",
   "background_color": "#ffffff",
   "display": "standalone"
 }
