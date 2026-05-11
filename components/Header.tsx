@@ -1,140 +1,105 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useState } from "react";
+import { motion } from "framer-motion";
+
+const BrandMark = ({ className = "" }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 64 64"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="Next Step"
+  >
+    <text
+      x="50%"
+      y="44"
+      textAnchor="middle"
+      fontFamily="Instrument Serif, serif"
+      fontSize="44"
+      fontWeight="500"
+      fill="#0a2540"
+      letterSpacing="-2"
+    >
+      N
+    </text>
+    <text
+      x="50%"
+      y="44"
+      textAnchor="middle"
+      fontFamily="Instrument Serif, serif"
+      fontSize="44"
+      fontWeight="500"
+      fill="#c9a14a"
+      letterSpacing="-2"
+      dx="12"
+    >
+      S
+    </text>
+    <path
+      d="M40 26 L 56 8 M 49 8 L 56 8 L 56 15"
+      stroke="#c9a14a"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+    />
+  </svg>
+);
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const links = [
+    { href: "#services", label: "Services" },
+    { href: "#process", label: "Process" },
+    { href: "#pricing", label: "Pricing" },
+    { href: "#about", label: "About" },
+  ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg"
-          : isMobileMenuOpen
-            ? "bg-[#0A2463]/95 backdrop-blur-md shadow-lg"
-            : "bg-transparent"
-      }`}
+    <motion.header
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="sticky top-0 z-50 border-b border-[var(--line)] backdrop-blur-md"
+      style={{ background: "rgba(251,250,247,0.85)" }}
     >
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <a
-            href="#"
-            className="flex items-center space-x-3 group"
-            aria-label="Next Step Consulting Group - Go to homepage"
-          >
-            <div className="w-16 h-16 relative bg-white rounded-lg p-2">
-              <Image
-                src="/just-logo.png"
-                alt="Next Step Consulting Group Logo"
-                width={64}
-                height={64}
-                className="object-contain"
-                priority
-              />
-            </div>
-            <div>
-              <span
-                className={`text-xl font-bold transition-colors block ${
-                  isScrolled
-                    ? "text-[#0A2463] group-hover:text-[#7EB23F]"
-                    : "text-white group-hover:text-[#7EB23F]"
-                }`}
-              >
-                Next Step
+      <div className="max-w-[1240px] mx-auto px-6 md:px-8">
+        <div className="flex items-center justify-between h-[72px]">
+          <a href="#top" className="flex items-center gap-2.5 group">
+            <BrandMark className="w-8 h-8" />
+            <div className="text-[15px] font-semibold tracking-tight text-[var(--ink)]">
+              Next Step{" "}
+              <span className="font-normal text-[var(--muted)]">
+                · Consulting
               </span>
-              <p
-                className={`text-xs transition-colors ${
-                  isScrolled ? "text-gray-600" : "text-blue-200"
-                }`}
-              >
-                Consulting Group
-              </p>
             </div>
           </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a
-              href="#services"
-              className={`font-medium transition-colors ${
-                isScrolled
-                  ? "text-gray-700 hover:text-[#0A2463]"
-                  : "text-white hover:text-[#7EB23F]"
-              }`}
-            >
-              Services
-            </a>
-            <a
-              href="#about"
-              className={`font-medium transition-colors ${
-                isScrolled
-                  ? "text-gray-700 hover:text-[#0A2463]"
-                  : "text-white hover:text-[#7EB23F]"
-              }`}
-            >
-              About
-            </a>
-            <a
-              href="#pricing"
-              className={`font-medium transition-colors ${
-                isScrolled
-                  ? "text-gray-700 hover:text-[#0A2463]"
-                  : "text-white hover:text-[#7EB23F]"
-              }`}
-            >
-              Pricing
-            </a>
-            <a
-              href="#features"
-              className={`font-medium transition-colors ${
-                isScrolled
-                  ? "text-gray-700 hover:text-[#0A2463]"
-                  : "text-white hover:text-[#7EB23F]"
-              }`}
-            >
-              Features
-            </a>
-            <a
-              href="#testimonials"
-              className={`font-medium transition-colors ${
-                isScrolled
-                  ? "text-gray-700 hover:text-[#0A2463]"
-                  : "text-white hover:text-[#7EB23F]"
-              }`}
-            >
-              Testimonials
-            </a>
-            <a
-              href="#contact"
-              className="bg-linear-to-r from-[#7EB23F] to-[#A8D47E] text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105"
-            >
-              Get Started
-            </a>
+          <nav className="hidden md:flex items-center gap-7 text-sm text-[var(--muted)]">
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="hover:text-[var(--ink)] transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
           </nav>
 
-          {/* Mobile Menu Button */}
+          <div className="hidden md:flex items-center gap-3.5">
+            <a href="#contact" className="btn btn-primary btn-pill">
+              Book a call <span className="opacity-70">→</span>
+            </a>
+          </div>
+
           <button
-            className={`md:hidden p-2 transition-colors ${
-              isScrolled ? "text-gray-700" : "text-white"
-            }`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={
-              isMobileMenuOpen
-                ? "Close navigation menu"
-                : "Open navigation menu"
-            }
-            aria-expanded={isMobileMenuOpen}
+            className="md:hidden p-2 text-[var(--ink)]"
+            onClick={() => setOpen(!open)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
           >
             <svg
               className="w-6 h-6"
@@ -142,7 +107,7 @@ export default function Header() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              {isMobileMenuOpen ? (
+              {open ? (
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -161,87 +126,35 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden pb-6 animate-fadeInDown ">
-            <nav className="flex flex-col space-y-4">
-              <a
-                href="#services"
-                className={`font-medium transition-colors ${
-                  isScrolled
-                    ? "text-gray-700 hover:text-[#0A2463]"
-                    : "text-white hover:text-[#7EB23F]"
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Services
-              </a>
-              <a
-                href="#about"
-                className={`font-medium transition-colors ${
-                  isScrolled
-                    ? "text-gray-700 hover:text-[#0A2463]"
-                    : "text-white hover:text-[#7EB23F]"
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                About
-              </a>
-              <a
-                href="#pricing"
-                className={`font-medium transition-colors ${
-                  isScrolled
-                    ? "text-gray-700 hover:text-[#0A2463]"
-                    : "text-white hover:text-[#7EB23F]"
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Pricing
-              </a>
-              <a
-                href="#features"
-                className={`font-medium transition-colors ${
-                  isScrolled
-                    ? "text-gray-700 hover:text-[#0A2463]"
-                    : "text-white hover:text-[#7EB23F]"
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Features
-              </a>
-              <a
-                href="#testimonials"
-                className={`font-medium transition-colors ${
-                  isScrolled
-                    ? "text-gray-700 hover:text-[#0A2463]"
-                    : "text-white hover:text-[#7EB23F]"
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Testimonials
-              </a>
-              <a
-                href="#why-choose-us"
-                className={`font-medium transition-colors ${
-                  isScrolled
-                    ? "text-gray-700 hover:text-[#0A2463]"
-                    : "text-white hover:text-[#7EB23F]"
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Why Us
-              </a>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden pb-6"
+          >
+            <nav className="flex flex-col gap-4">
+              {links.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-[var(--muted)] hover:text-[var(--ink)] transition-colors text-base"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
               <a
                 href="#contact"
-                className="bg-linear-to-r from-[#7EB23F] to-[#A8D47E] text-white px-6 py-2.5 rounded-lg font-semibold text-center"
-                onClick={() => setIsMobileMenuOpen(false)}
+                className="btn btn-primary btn-pill self-start"
+                onClick={() => setOpen(false)}
               >
-                Get Started
+                Book a call <span className="opacity-70">→</span>
               </a>
             </nav>
-          </div>
+          </motion.div>
         )}
       </div>
-    </header>
+    </motion.header>
   );
 }

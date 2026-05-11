@@ -1,318 +1,472 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
-import Image from "next/image";
+import type { ReactNode } from "react";
+
+type Service = {
+  num: string;
+  title: string;
+  description: string;
+  bullets: string[];
+  image: string;
+  icon: ReactNode;
+};
+
+const PassportIcon = () => (
+  <svg
+    width="30"
+    height="30"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="6"
+      y="4"
+      width="18"
+      height="24"
+      rx="2"
+      stroke="#122657"
+      strokeWidth="1.6"
+      className="svg-stroke"
+    />
+    <circle
+      cx="15"
+      cy="13"
+      r="3.5"
+      stroke="#122657"
+      strokeWidth="1.6"
+      className="svg-stroke"
+    />
+    <path
+      d="M10 20h10"
+      stroke="#7fbf3f"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      className="svg-accent"
+    />
+    <path
+      d="M12 23h6"
+      stroke="#7fbf3f"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      className="svg-accent"
+    />
+  </svg>
+);
+
+const BriefcaseIcon = () => (
+  <svg
+    width="30"
+    height="30"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="4"
+      y="10"
+      width="24"
+      height="16"
+      rx="2"
+      stroke="#122657"
+      strokeWidth="1.6"
+      className="svg-stroke"
+    />
+    <path
+      d="M12 10V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"
+      stroke="#122657"
+      strokeWidth="1.6"
+      className="svg-stroke"
+    />
+    <line
+      x1="4"
+      y1="17"
+      x2="28"
+      y2="17"
+      stroke="#7fbf3f"
+      strokeWidth="1.6"
+      className="svg-accent"
+    />
+    <rect
+      x="14.5"
+      y="15.5"
+      width="3"
+      height="3"
+      fill="#122657"
+      className="svg-fill"
+    />
+  </svg>
+);
+
+const HouseIcon = () => (
+  <svg
+    width="30"
+    height="30"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M5 14l11-9 11 9v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V14z"
+      stroke="#122657"
+      strokeWidth="1.6"
+      strokeLinejoin="round"
+      className="svg-stroke"
+    />
+    <path
+      d="M13 28v-7h6v7"
+      stroke="#7fbf3f"
+      strokeWidth="1.6"
+      strokeLinejoin="round"
+      className="svg-accent"
+    />
+  </svg>
+);
+
+const PeopleIcon = () => (
+  <svg
+    width="30"
+    height="30"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      cx="12"
+      cy="11"
+      r="4"
+      stroke="#122657"
+      strokeWidth="1.6"
+      className="svg-stroke"
+    />
+    <path
+      d="M4 26c1.5-4.5 4.5-7 8-7s6.5 2.5 8 7"
+      stroke="#122657"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      className="svg-stroke"
+    />
+    <circle
+      cx="22"
+      cy="9"
+      r="3"
+      stroke="#7fbf3f"
+      strokeWidth="1.6"
+      className="svg-accent"
+    />
+    <path
+      d="M21 15c4 0 6.5 3 7 8"
+      stroke="#7fbf3f"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      className="svg-accent"
+    />
+  </svg>
+);
+
+const PlaneIcon = () => (
+  <svg
+    width="30"
+    height="30"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M22 6l4 4-12 8 1 8-3 0-3-7-7-3 0-3 8 1 8-12 4 4z"
+      stroke="#122657"
+      strokeWidth="1.6"
+      strokeLinejoin="round"
+      className="svg-stroke"
+    />
+    <path
+      d="M5 27l4-4"
+      stroke="#7fbf3f"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      className="svg-accent"
+    />
+  </svg>
+);
+
+const GlobeIcon = () => (
+  <svg
+    width="30"
+    height="30"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      cx="16"
+      cy="16"
+      r="11"
+      stroke="#122657"
+      strokeWidth="1.6"
+      className="svg-stroke"
+    />
+    <path
+      d="M5 16h22"
+      stroke="#122657"
+      strokeWidth="1.6"
+      className="svg-stroke"
+    />
+    <path
+      d="M16 5c3 3 5 7 5 11s-2 8-5 11c-3-3-5-7-5-11s2-8 5-11z"
+      stroke="#7fbf3f"
+      strokeWidth="1.6"
+      className="svg-accent"
+    />
+  </svg>
+);
+
+const services: Service[] = [
+  {
+    num: "Service 01",
+    title: "Visit Visa",
+    description:
+      "Secure your UAE visit visa hassle-free. We handle all documentation and processing for tourist, family, and business visas with quick turnaround.",
+    bullets: [
+      "Tourist & family visit visas",
+      "Business visit visas",
+      "Fast processing times",
+      "Complete documentation support",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80",
+    icon: <PassportIcon />,
+  },
+  {
+    num: "Service 02",
+    title: "Business Setup in UAE",
+    description:
+      "Complete company formation — mainland, freezone, and offshore. Legal documentation, licensing, and office space, all under one roof.",
+    bullets: [
+      "Mainland company formation",
+      "Freezone business setup",
+      "Offshore company registration",
+      "License & PRO services",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+    icon: <BriefcaseIcon />,
+  },
+  {
+    num: "Service 03",
+    title: "Real Estate",
+    description:
+      "Expert real estate consultancy for buying, selling, and leasing in the UAE — with market analysis, valuations, and negotiation support.",
+    bullets: [
+      "Residential properties",
+      "Commercial investments",
+      "Property management",
+      "Market analysis & valuation",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+    icon: <HouseIcon />,
+  },
+  {
+    num: "Service 04",
+    title: "Human Resource",
+    description:
+      "Comprehensive HR solutions — recruitment, payroll, employee visas, and compliance. We handle the people layer so you can grow.",
+    bullets: [
+      "Talent recruitment",
+      "Payroll management",
+      "Employee visa processing",
+      "HR compliance & consulting",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=80",
+    icon: <PeopleIcon />,
+  },
+  {
+    num: "Service 05",
+    title: "Freelance Visa Solutions",
+    description:
+      "Live and work in the UAE as an independent professional. Built for digital workers, creatives, and consultants who want flexibility.",
+    bullets: [
+      "2-year freelance residency",
+      "Emirates ID with NOC",
+      "Job assistance network",
+      "Bank account assistance",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80",
+    icon: <PlaneIcon />,
+  },
+  {
+    num: "Service 06",
+    title: "International Recruitment",
+    description:
+      "Connecting world-class organizations with top-tier talent. End-to-end international hiring — immigration, compliance, and onboarding.",
+    bullets: [
+      "Verified candidate sourcing",
+      "End-to-end placement",
+      "Immigration & compliance",
+      "Onboarding support",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80",
+    icon: <GlobeIcon />,
+  },
+];
+
+const grid: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+};
+
+const card: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+};
 
 export default function Services() {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, {
-    once: true,
-    amount: 0.1,
-    margin: "0px 0px -100px 0px",
-  });
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const services = [
-    {
-      id: 1,
-      title: "Visit Visa",
-      description:
-        "Secure your UAE visit visa hassle-free. We handle all documentation and processing for tourist, family, and business visit visas with quick turnaround times. Our expert team ensures a smooth application process, from initial consultation to visa approval, making your travel plans stress-free and efficient.",
-      icon: (
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-        />
-      ),
-      image: "/visit-visa.png",
-      gradient: "from-[#0A2463] to-[#1E3A8A]",
-      features: [
-        "Tourist & Family Visit Visas",
-        "Business Visit Visas",
-        "Fast Processing Times",
-        "Complete Documentation Support",
-      ],
-    },
-    {
-      id: 2,
-      title: "Business Setup in UAE",
-      description:
-        "Complete business setup solutions in UAE. From company registration to licensing, we guide you through mainland, freezone, and offshore company formation. Our comprehensive services cover everything from legal documentation to office space solutions, ensuring your business gets off to the perfect start.",
-      icon: (
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-        />
-      ),
-      image: "/business-setup.png",
-      gradient: "from-[#7EB23F] to-[#A8D47E]",
-      features: [
-        "Mainland Company Formation",
-        "Freezone Business Setup",
-        "Offshore Company Registration",
-        "License & PRO Services",
-      ],
-    },
-    {
-      id: 3,
-      title: "Real Estate",
-      description:
-        "Expert real estate consultancy for buying, selling, and leasing properties in UAE. We help you find the perfect residential or commercial property investment. Our team of experienced consultants provides comprehensive market analysis, property valuations, and negotiation support to ensure you make informed decisions.",
-      icon: (
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-        />
-      ),
-      image: "/real-estate.png",
-      gradient: "from-[#06B6D4] to-[#0EA5E9]",
-      features: [
-        "Residential Properties",
-        "Commercial Investments",
-        "Property Management",
-        "Market Analysis & Valuation",
-      ],
-    },
-    {
-      id: 4,
-      title: "Human Resource",
-      description:
-        "Comprehensive HR solutions including recruitment, payroll management, employee visa processing, and compliance. Building strong teams for your business success. We handle all aspects of human resource management, allowing you to focus on growing your business while we take care of your most valuable asset - your people.",
-      icon: (
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-        />
-      ),
-      image: "/human-resource.png",
-      gradient: "from-[#1E3A8A] to-[#0A2463]",
-      features: [
-        "Talent Recruitment",
-        "Payroll Management",
-        "Employee Visa Processing",
-        "HR Compliance & Consulting",
-      ],
-    },
-  ];
-
   return (
-    <section
-      id="services"
-      className="py-24 bg-white relative overflow-hidden"
-      ref={sectionRef}
-    >
-      {/* Background Decoration */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-5">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-[#7EB23F] rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#06B6D4] rounded-full blur-3xl"></div>
-      </div>
+    <section className="py-24" id="services">
+      <style>{`
+        .service-card { transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+        .service-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(18,38,87,0.2);
+          box-shadow: 0 16px 40px -20px rgba(10,16,40,0.18), 0 2px 6px rgba(10,16,40,0.04);
+        }
+        .service-card .svc-icon { transition: background 0.25s ease, transform 0.25s ease; }
+        .service-card:hover .svc-icon { background: var(--navy); transform: rotate(-4deg); }
+        .service-card:hover .svg-stroke { stroke: #fff; }
+        .service-card:hover .svg-accent { stroke: var(--green); }
+        .service-card:hover .svg-fill { fill: var(--green); }
+        .service-card .svc-arr { transition: all 0.2s ease; }
+        .service-card:hover .svc-arr { background: var(--navy); color: #fff; transform: translateX(3px); }
+      `}</style>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        {/* Section Header */}
+      <div className="max-w-[1240px] mx-auto px-6 md:px-8">
         <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: -20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+          className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12 items-end mb-12"
         >
-          <div className="inline-block mb-4">
-            <span className="bg-linear-to-r from-[#0A2463] to-[#06B6D4] text-white px-4 py-1 rounded-full text-sm font-semibold">
-              Our Services
-            </span>
+          <div>
+            <div className="eyebrow">Our Services</div>
+            <h2 className="heading heading-lg mt-3.5">
+              Comprehensive solutions
+              <br />
+              for your <span className="font-serif-italic">success.</span>
+            </h2>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0A2463] mb-4">
-            Comprehensive Solutions for Your Success
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-[17px] leading-[1.55] text-[var(--muted)] max-w-[540px]">
             From visa processing to business setup, we provide end-to-end
-            services to help you thrive in the UAE
+            services to help you thrive in the UAE — expertly handled,
+            transparently priced.
           </p>
         </motion.div>
 
-        {/* Services List */}
         <motion.div
-          className="max-w-7xl mx-auto space-y-16 md:space-y-24"
-          variants={containerVariants}
+          variants={grid}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.05 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
-          {services.map((service, index) => (
+          {services.map((s) => (
             <motion.div
-              key={service.id}
-              className={`grid md:grid-cols-2 gap-8 md:gap-12 items-center`}
-              variants={itemVariants}
+              key={s.title}
+              variants={card}
+              className="service-card bg-white border border-[var(--line)] rounded-[16px] overflow-hidden flex flex-col"
             >
-              {/* Image - Left for even, Right for odd */}
               <div
-                className={`relative ${
-                  index % 2 === 0 ? "md:order-1" : "md:order-2"
-                }`}
+                className="relative aspect-[16/10] bg-[#0a1538]"
+                style={{
+                  backgroundImage: `url(${s.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
               >
-                <div className="relative h-64 sm:h-80 md:h-96 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl group">
-                  {/* Image */}
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-
-                  {/* Dark Overlay */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/5 to-transparent"></div>
-
-                  {/* Icon Badge */}
-                  <div
-                    className={`absolute top-4 left-4 md:top-6 md:left-6 w-12 h-12 md:w-16 md:h-16 bg-linear-to-br ${service.gradient} backdrop-blur-md rounded-xl md:rounded-2xl flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
-                  >
-                    <svg
-                      className="w-6 h-6 md:w-8 md:h-8 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      {service.icon}
-                    </svg>
-                  </div>
-                </div>
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(18,38,87,0.08) 0%, rgba(18,38,87,0.55) 100%)",
+                  }}
+                />
+                <span
+                  className="absolute top-4 left-4 z-[2] font-mono text-[11px] tracking-[0.14em] uppercase text-white/85 px-2.5 py-1 rounded-full"
+                  style={{
+                    background: "rgba(10,16,40,0.35)",
+                    backdropFilter: "blur(6px)",
+                    WebkitBackdropFilter: "blur(6px)",
+                  }}
+                >
+                  {s.num}
+                </span>
+                <span
+                  className="svc-icon absolute -bottom-7 right-6 z-[3] w-16 h-16 rounded-[16px] bg-white border border-[var(--line)] inline-flex items-center justify-center"
+                  style={{
+                    boxShadow: "0 8px 24px -8px rgba(10,16,40,0.25)",
+                  }}
+                >
+                  {s.icon}
+                </span>
               </div>
 
-              {/* Content - Right for even, Left for odd */}
-              <div
-                className={`${index % 2 === 0 ? "md:order-2" : "md:order-1"}`}
-              >
-                <div className="mb-4 md:mb-6">
-                  <span
-                    className={`inline-block px-3 py-1 md:px-4 rounded-full text-xs md:text-sm font-semibold bg-linear-to-r ${service.gradient} text-white mb-3 md:mb-4`}
-                  >
-                    Service {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0A2463] mb-3 md:mb-4">
-                    {service.title}
-                  </h3>
-                  <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-4 md:mb-6">
-                    {service.description}
-                  </p>
-                </div>
-
-                {/* Features List */}
-                <div className="space-y-2 md:space-y-3 mb-6 md:mb-8">
-                  {service.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center gap-3">
-                      <div
-                        className={`shrink-0 w-6 h-6 bg-linear-to-br ${service.gradient} rounded-full flex items-center justify-center`}
-                      >
-                        <svg
-                          className="w-4 h-4 text-white"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={3}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      </div>
-                      <span className="text-sm md:text-base text-gray-700 font-medium">
-                        {feature}
-                      </span>
-                    </div>
+              <div className="px-7 pt-[38px] pb-7 flex flex-col flex-1">
+                <h3 className="heading heading-md mb-2.5">{s.title}</h3>
+                <p className="text-[14.5px] leading-[1.55] text-[var(--muted)] mb-5 flex-1">
+                  {s.description}
+                </p>
+                <ul className="list-none p-0 m-0 mb-5 flex flex-col gap-2">
+                  {s.bullets.map((b) => (
+                    <li
+                      key={b}
+                      className="flex items-center gap-2.5 text-[13.5px] text-[var(--ink)]"
+                    >
+                      <span className="shrink-0 w-3.5 h-px bg-[var(--green)] inline-block"></span>
+                      {b}
+                    </li>
                   ))}
-                </div>
-
-                {/* Learn More Button */}
+                </ul>
                 <a
                   href="#contact"
-                  className="group inline-flex items-center gap-2 text-[#0A2463] font-semibold hover:gap-3 transition-all duration-300"
-                  aria-label={`Learn more about ${service.title} services`}
+                  className="flex items-center justify-between pt-[18px] border-t border-[var(--line)] text-[13.5px] font-medium text-[var(--navy-deep)]"
                 >
-                  <span className="border-b-2 border-[#0A2463]">
-                    Learn More
-                  </span>
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                  Learn more
+                  <span
+                    className="svc-arr w-7 h-7 rounded-full bg-[var(--cream)] inline-flex items-center justify-center text-[var(--navy)] text-[13px]"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
+                    →
+                  </span>
                 </a>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-24 animate-fadeInUp animate-delay-500">
-          <div className="bg-linear-to-br from-[#0A2463] via-[#1E3A8A] to-[#0A2463] rounded-3xl p-12 max-w-full mx-auto shadow-2xl">
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Need a Custom Solution?
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+          className="mt-8 rounded-[16px] border border-[var(--line)] p-8 md:px-9 flex items-center justify-between gap-6 flex-wrap"
+          style={{ background: "var(--cream)" }}
+        >
+          <div>
+            <h3 className="heading text-[22px] m-0 mb-1.5">
+              Need a custom solution?
             </h3>
-            <p className="text-xl text-blue-100 mb-8">
-              We&apos;re here to help you with tailored services that meet your
-              unique needs
+            <p className="m-0 text-[14.5px] text-[var(--muted)]">
+              We&apos;re here to help you with tailored services that meet
+              your unique needs.
             </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 bg-linear-to-r from-[#7EB23F] to-[#A8D47E] text-white px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover:shadow-[#7EB23F]/50 hover:scale-105 transition-all duration-300"
-            >
-              <span>Contact Us Today</span>
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </a>
           </div>
-        </div>
+          <a href="#contact" className="btn btn-primary">
+            Contact us today <span>→</span>
+          </a>
+        </motion.div>
       </div>
     </section>
   );
