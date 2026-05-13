@@ -28,10 +28,9 @@ export default function Contact() {
       });
       const data = await response.json();
       if (response.ok) {
-        toast.success(
-          "Thanks — we'll be in touch within two business days.",
-          { id: loadingToast }
-        );
+        toast.success("Thanks — we'll be in touch within two business days.", {
+          id: loadingToast,
+        });
         setSuccess(true);
       } else {
         toast.error(data.error || "Something went wrong. Please try again.", {
@@ -104,7 +103,7 @@ export default function Contact() {
                   nextstep247123@gmail.com
                 </a>
                 <div className="text-[var(--muted)]">
-                  +977 9864272741 · +977 9851403851
+                  +977 9864272741 , +971 507375742
                 </div>
               </div>
             </div>
